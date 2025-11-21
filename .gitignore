@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Data Folders
+final_twin_analysis/
+patient_profiles/
+output_profiles_lite*/
+msk_chord_2024/
+
+# Data Files
+data_clinical_patient.txt
+data_clinical_sample.txt
+data_mutations_fully_annotated_luad.csv
+data_cna_fully_annotated_luad.csv
+data_sv_fully_annotated_luad.csv
