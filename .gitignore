@@ -19,3 +19,4 @@ data_clinical_sample.txt
 data_mutations_fully_annotated_luad.csv
 data_cna_fully_annotated_luad.csv
 data_sv_fully_annotated_luad.csv
+*.json

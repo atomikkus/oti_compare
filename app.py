@@ -1,5 +1,5 @@
 import streamlit as st
-from views import overview, analysis_detail, deep_dive, genomics_deep_dive
+from views import analysis_detail, deep_dive, genomics_deep_dive
 from utils.data_loader import load_twin_analyses, load_patient_profiles
 
 st.set_page_config(page_title="Twin Analysis Dashboard", layout="wide")
@@ -47,11 +47,12 @@ st.markdown("""
         }
         .blue-banner-text {
             color: #1E40AF;
-            font-weight: 500;
+            font-weight: bold;
             font-size: 0.95rem;
         }
         .blue-banner-label {
             color: #60A5FA;
+            font-weight: bold;
             font-size: 0.85rem;
             margin-right: 0.25rem;
         }
@@ -157,8 +158,8 @@ st.markdown("""
 # Load Data
 @st.cache_data
 def get_data():
-    analyses = load_twin_analyses("final_twin_analysis")
-    patient_profiles = load_patient_profiles("patient_profiles")
+    analyses = load_twin_analyses("final_twin_analysis_2")
+    patient_profiles = load_patient_profiles("patient_profiles_2")
     return analyses, patient_profiles
 
 try:
@@ -170,13 +171,15 @@ except FileNotFoundError as e:
 # Sidebar Navigation
 st.sidebar.title("Navigation")
 if "navigation" not in st.session_state:
-    st.session_state.navigation = "Overview"
+    st.session_state.navigation = "Analysis Detail"
 
-page = st.sidebar.radio("Go to", ["Overview", "Analysis Detail", "Clinical Deep Dive", "Genomics Deep Dive"], key="navigation")
+# Ensure valid page selection if state was previously Overview
+if st.session_state.navigation == "Overview":
+    st.session_state.navigation = "Analysis Detail"
 
-if page == "Overview":
-    overview.show(analyses)
-elif page == "Analysis Detail":
+page = st.sidebar.radio("Go to", ["Analysis Detail", "Clinical Deep Dive", "Genomics Deep Dive"], key="navigation")
+
+if page == "Analysis Detail":
     analysis_detail.show(analyses)
 elif page == "Clinical Deep Dive":
     deep_dive.show(patient_profiles)

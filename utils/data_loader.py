@@ -18,7 +18,7 @@ def load_twin_analyses(directory):
                     data['filename'] = filename # Add filename for reference
                     analyses.append(data)
             except json.JSONDecodeError:
-                st.warning(f"Skipping invalid JSON file: {filename}")
+                pass # st.warning(f"Skipping invalid JSON file: {filename}")
     return analyses
 
 def load_clinical_data(directory):
@@ -84,5 +84,5 @@ def load_patient_profiles(directory):
                     patient_id = data.get('patient_id', os.path.splitext(filename)[0])
                     profiles[patient_id] = data
             except json.JSONDecodeError:
-                st.warning(f"Skipping invalid JSON file: {filename}")
+                pass
     return profiles
